@@ -1,0 +1,169 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 221 83% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 142 64% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 221 83% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142 76% 36%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-800/50;
+  }
+  
+  .premium-button {
+    @apply relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-md transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 px-6 py-3 flex items-center gap-2;
+  }
+  
+  .premium-input {
+    @apply w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/30 focus:outline-none transition-all duration-200 shadow-sm;
+  }
+  
+  .animate-enter {
+    @apply opacity-0 translate-y-4;
+    animation: enter 0.6s ease forwards;
+  }
+  
+  @keyframes enter {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg;
+  }
+  
+  .article-content {
+    @apply prose prose-lg lg:prose-xl dark:prose-invert max-w-none;
+  }
+  
+  .article-content h1 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-primary/90 dark:text-primary/80;
+  }
+  
+  .article-content h2 {
+    @apply text-xl md:text-2xl font-semibold mt-8 mb-4 text-gray-800 dark:text-gray-200;
+  }
+  
+  .article-content p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  .article-content blockquote {
+    @apply border-l-4 border-primary/50 pl-4 italic my-6 text-gray-700 dark:text-gray-300;
+  }
+  
+  /* Print styles - hide buttons and navbar when printing */
+  @media print {
+    button, .fixed, nav {
+      display: none !important;
+    }
+    
+    body, html {
+      background: white !important;
+      color: black !important;
+    }
+    
+    .article-content {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      border: none !important;
+      background: white !important;
+      color: black !important;
+      box-shadow: none !important;
+    }
+  }
+}
