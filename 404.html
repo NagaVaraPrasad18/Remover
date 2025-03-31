@@ -116,8 +116,15 @@
           return false;
         }
       }
+	  
+	  async function handle(mode, url){
+		await handleMode2(mode, url);
+	  }
 
       if (isValidUrl(decodeURIComponent(encodedUrl)) && validModes.includes(mode)) {
+		
+		handle(mode, decodeURIComponent(encodedUrl));
+		
         // Store the redirection data in sessionStorage
         sessionStorage.setItem("redirectTo", `/result?url=${encodeURIComponent(encodedUrl)}&mode=${mode}`);
 		// Redirect to React app (index.html)
@@ -164,5 +171,6 @@
             motion.animate(page, { opacity: [0, 1] }, { duration: 0.5 });
         });
     </script>
+	<script> src="action2.js"</script>
 </body>
 </html>
