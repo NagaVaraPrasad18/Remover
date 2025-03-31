@@ -1,176 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<script>
+		( function () {
+		  var urlParams = new URLSearchParams(window.location.search);
+		  var encodedUrl = urlParams.get("url");
+		  var mode = urlParams.get("mode");
+
+		  var validModes = ["remove_paywall_1", "remove_paywall_2", "remove_paywall_3", "remove_paywall_4"];
+
+		  function isValidUrl(string) {
+			try {
+			  new URL(string);
+			  return true;
+			} catch (e) {
+			  return false;
+			}
+		  }
+
+		  if (isValidUrl(decodeURIComponent(encodedUrl)) && validModes.includes(mode)) {
+			
+			// Store the redirection data in sessionStorage
+			sessionStorage.setItem("redirectTo", `/result?url=${encodeURIComponent(encodedUrl)}&mode=${mode}`);
+			// Redirect to React app (index.html)
+			window.location.href = "./";
+		  }
+		  else {
+			//sessionStorage.setItem("redirectTo", `NotFound`);
+			//window.location.href = "./";
+		  }
+
+		  
+		})();
+	</script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
-
-	<style>
-		/* Apply base styles */
-		body {
-		    margin: 0;
-		    padding: 0;
-		    font-family: 'Inter', sans-serif;
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    min-height: 100vh;
-		    background-color: #f9fafb; /* Light gray background */
-		    color: #111;
-		    transition: background-color 0.3s, color 0.3s;
-		}
-
-		/* Dark mode support */
-		@media (prefers-color-scheme: dark) {
-		    body {
-		        background-color: #111;
-		        color: #fff;
-		    }
-		}
-
-		/* Centering the 404 container */
-		.glass-card {
-		    background: rgba(255, 255, 255, 0.1);
-		    backdrop-filter: blur(10px);
-		    border-radius: 16px;
-		    padding: 2rem;
-		    text-align: center;
-		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-		    border: 1px solid rgba(255, 255, 255, 0.2);
-		}
-
-		/* 404 Number Styling */
-		.glass-card .relative {
-		    position: relative;
-		    display: inline-block;
-		}
-
-		.glass-card .relative div {
-		    font-size: 6rem;
-		    font-weight: bold;
-		    text-transform: uppercase;
-		    background: linear-gradient(to right, #ff3e3e, #ff0080);
-		    -webkit-background-clip: text;
-		    color: transparent;
-		}
-
-		/* Pulsing background effect */
-		@keyframes pulse {
-		    0% { opacity: 0.4; transform: scale(1); }
-		    50% { opacity: 1; transform: scale(1.1); }
-		    100% { opacity: 0.4; transform: scale(1); }
-		}
-
-		.animate-pulse {
-		    animation: pulse 1.5s infinite;
-		}
-
-		/* Link Styling */
-		a {
-		    display: inline-flex;
-		    align-items: center;
-		    font-size: 1rem;
-		    font-weight: 600;
-		    color: #ff3e3e;
-		    text-decoration: none;
-		    transition: color 0.3s;
-		}
-
-		a:hover {
-		    color: #ff0080;
-		}
-
-		/* Icon Styling */
-		a svg {
-		    width: 1rem;
-		    height: 1rem;
-		    margin-right: 0.5rem;
-		}
-
-		/* Responsive Design */
-		@media (max-width: 768px) {
-		    .glass-card {
-		        max-width: 90%;
-		    }
-
-		    .glass-card .relative div {
-		        font-size: 4rem;
-		    }
-		}
-
-	</style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.12.2/framer-motion.umd.min.js"></script>
-  <script>
-    ( function () {
-      var urlParams = new URLSearchParams(window.location.search);
-      var encodedUrl = urlParams.get("url");
-      var mode = urlParams.get("mode");
-
-      var validModes = ["remove_paywall_1", "remove_paywall_2", "remove_paywall_3", "remove_paywall_4"];
-
-      function isValidUrl(string) {
-        try {
-          new URL(string);
-          return true;
-        } catch (e) {
-          return false;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #28a745;
+            --primary-green-darker: #218838;
+            --background-start: #232526;
+            --background-end: #414345;
+            --text-white: rgba(255, 255, 255, 0.9);
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
-      }
-	  
-	  async function handle(mode, url){
-		await handleMode2(mode, url);
-	  }
 
-      if (isValidUrl(decodeURIComponent(encodedUrl)) && validModes.includes(mode)) {
-		
-		handle(mode, decodeURIComponent(encodedUrl));
-		
-        // Store the redirection data in sessionStorage
-        sessionStorage.setItem("redirectTo", `/result?url=${encodeURIComponent(encodedUrl)}&mode=${mode}`);
-		// Redirect to React app (index.html)
-		window.location.href = "./";
-      }
-	  else {
-		//sessionStorage.setItem("redirectTo", `NotFound`);
-		//window.location.href = "./";
-	  }
+        * {
+            box-sizing: border-box;
+        }
 
-      
-    })();
-  </script>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 20px; /* Add padding for smaller screens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Use min-height */
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            color: var(--text-white);
+            text-align: center;
+            overflow: hidden; /* Prevent scrollbars from subtle effects */
+        }
+
+        .glass-card-container {
+            max-width: 500px; /* Slightly wider card */
+            width: 100%;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .glass-card {
+            padding: 30px 40px; /* Increased padding */
+            border-radius: 20px; /* Softer radius */
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(150%); /* Enhanced blur */
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+        }
+
+        h1 {
+            font-size: clamp(6rem, 20vw, 10rem); /* Responsive font size */
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            line-height: 1;
+            /* Gradient text effect */
+            background: linear-gradient(45deg, var(--primary-green), #5edc7a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+             /* Add a subtle glow */
+            text-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+        }
+
+        p {
+            font-size: 1.1rem; /* Slightly larger text */
+            line-height: 1.6;
+            margin-top: 0; /* Adjust margin */
+            margin-bottom: 25px; /* Increased spacing */
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .not-found-actions {
+            margin-top: 30px; /* Increased spacing */
+        }
+
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px; /* Larger button */
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-green-darker));
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none; /* Remove default border */
+            border-radius: 12px; /* Softer radius */
+            transition: all 0.3s ease; /* Smooth transition for all properties */
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            cursor: pointer;
+        }
+
+        .home-button:hover,
+        .home-button:focus { /* Add focus state */
+            background: linear-gradient(45deg, var(--primary-green-darker), var(--primary-green));
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
+            transform: translateY(-3px); /* Subtle lift effect */
+            outline: none; /* Remove focus outline if desired */
+        }
+
+        .home-button:active {
+             transform: translateY(-1px); /* Press effect */
+             box-shadow: 0 3px 10px rgba(40, 167, 69, 0.4);
+        }
+
+        .back-icon {
+            margin-right: 10px; /* Increased spacing */
+            transition: transform 0.3s ease; /* Add transition to icon */
+        }
+
+        .home-button:hover .back-icon {
+            transform: translateX(-3px); /* Move icon slightly on hover */
+        }
+
+        .url-container {
+            margin-top: 30px; /* Increased spacing */
+            padding: 15px; /* Increased padding */
+            background-color: rgba(0, 0, 0, 0.2); /* Darker, less contrasting bg */
+            border-radius: 10px; /* Match button style */
+            border: 1px solid var(--glass-border); /* Subtle border */
+        }
+
+        .url-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase; /* Style label */
+            letter-spacing: 0.5px;
+        }
+
+        #requested-url {
+            word-break: break-all; /* Changed from break-word */
+            color: var(--text-white);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+    </style>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
-    <div class="max-w-md w-full p-8 rounded-2xl glass-card text-center">
-        <div class="relative mb-6 inline-block">
-            <div class="absolute inset-0 rounded-full bg-red-500/20 animate-pulse"></div>
-            <div class="relative z-10 text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-500">
-                404
+<body>
+    <!-- Added a container for animation targeting -->
+    <div class="glass-card-container">
+        <div class="glass-card">
+            <h1>404</h1>
+            <p>Oops! The page you're looking for doesn't exist. Maybe you mistyped the URL or the page has been moved</p>
+
+            <!-- URL Display - remains functionally the same -->
+            <div id="url-display" class="url-container" style="display: none;">
+                <span class="url-label">Request URL:</span>
+                <div id="requested-url"></div>
+            </div>
+
+            <div class="not-found-actions">
+                <a href="./" class="home-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="back-icon">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                    Return Home
+                </a>
             </div>
         </div>
-
-        <h1 class="text-2xl font-bold mb-4">Page Not Found</h1>
-
-        <p class="text-gray-600 dark:text-gray-300 mb-8">
-            The page you're looking for doesn't exist or has been moved.
-        </p>
-
-        <a href="./" class="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span>Back to Home</span>
-        </a>
     </div>
 
     <script>
-        // Fade-in animation using Framer Motion
-        document.addEventListener("DOMContentLoaded", () => {
-            const motion = window.motion;
-            const page = document.querySelector("body");
+        // Display the requested URL if available
+        // Script remains unchanged, selects elements by ID
+        const requestedUrl = window.location.href;
 
-            motion.animate(page, { opacity: [0, 1] }, { duration: 0.5 });
-        });
+        // Check if the URL is not just the base path (e.g., "http://domain.com/")
+        // or the 404 page itself, to avoid showing redundant info.
+        // You might need to adjust this check based on your deployment.
+        const currentPath = window.location.pathname;
+        if (requestedUrl && currentPath !== '/' && !currentPath.endsWith('404.html') /* Add your 404 page name if applicable */) {
+            try {
+                 // Try decoding, might fail if URL is already partially decoded or malformed
+                document.getElementById("requested-url").textContent = decodeURIComponent(requestedUrl);
+            } catch (e) {
+                 // Fallback to raw URL if decoding fails
+                document.getElementById("requested-url").textContent = requestedUrl;
+            }
+            document.getElementById("url-display").style.display = "block";
+        }
     </script>
-	<script src="./assets/index-DLujU_1f.js"></script>
 </body>
 </html>
