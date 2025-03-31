@@ -2,7 +2,7 @@
 <html>
 <head>
   <script>
-    window.onload = function () {
+    ( function () {
       var urlParams = new URLSearchParams(window.location.search);
       var encodedUrl = urlParams.get("url");
       var mode = urlParams.get("mode");
@@ -25,7 +25,7 @@
 
       // Redirect to React app (index.html)
       window.location.href = "./";
-    };
+    })();
   </script>
 </head>
 <body>
