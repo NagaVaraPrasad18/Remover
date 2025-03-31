@@ -215,26 +215,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Display the requested URL if available
-        // Script remains unchanged, selects elements by ID
-        const requestedUrl = window.location.href;
-
-        // Check if the URL is not just the base path (e.g., "http://domain.com/")
-        // or the 404 page itself, to avoid showing redundant info.
-        // You might need to adjust this check based on your deployment.
-        const currentPath = window.location.pathname;
-        if (requestedUrl && currentPath !== '/' && !currentPath.endsWith('404.html') /* Add your 404 page name if applicable */) {
-            try {
-                 // Try decoding, might fail if URL is already partially decoded or malformed
-                document.getElementById("requested-url").textContent = decodeURIComponent(requestedUrl);
-            } catch (e) {
-                 // Fallback to raw URL if decoding fails
-                document.getElementById("requested-url").textContent = requestedUrl;
-            }
-            document.getElementById("url-display").style.display = "block";
-        }
-    </script>
 </body>
 </html>
