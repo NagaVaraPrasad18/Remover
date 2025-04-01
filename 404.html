@@ -25,9 +25,10 @@
 			// Redirect to React app (index.html)
 			window.location.href = "./";
 		  }
-		  else {
-			//sessionStorage.setItem("redirectTo", `NotFound`);
-			//window.location.href = "./";
+		  else if (window.location.pathname.toLowerCase().startsWith("/donate")) {
+			sessionStorage.setItem("redirectTo", `/donate`);
+			// Redirect to React app (index.html)
+			window.location.href = "./";
 		  }
 
 		  
