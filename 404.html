@@ -18,8 +18,8 @@
 			}
 		  }
 		  
-		  console.log("Pathname: ", window.location.pathname.toLowerCase());
-		  console.log("Is Pathname /donate? - ", window.location.pathname.toLowerCase().startsWith("/donate"));
+		  //console.log("Pathname: ", window.location.pathname.toLowerCase());
+		  //console.log("Is Pathname /donate? - ", window.location.pathname.toLowerCase().startsWith("/donate"));
 
 		  if (isValidUrl(decodeURIComponent(encodedUrl)) && validModes.includes(mode)) {
 			
@@ -28,7 +28,7 @@
 			// Redirect to React app (index.html)
 			window.location.href = "./";
 		  }
-		  else if (window.location.pathname.toLowerCase().startsWith("/donate")) {
+		  else if (window.location.pathname.toLowerCase().startsWith("/remover/donate")) {
 			sessionStorage.setItem("redirectTo", `/donate`);
 			// Redirect to React app (index.html)
 			window.location.href = "./";
