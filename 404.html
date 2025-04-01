@@ -17,6 +17,9 @@
 			  return false;
 			}
 		  }
+		  
+		  console.log("Pathname: ", window.location.pathname.toLowerCase());
+		  console.log("Is Pathname /donate? - ", window.location.pathname.toLowerCase().startsWith("/donate"));
 
 		  if (isValidUrl(decodeURIComponent(encodedUrl)) && validModes.includes(mode)) {
 			
